@@ -51,7 +51,7 @@ configurations {
 }
 
 shadowJar {
-
+    exclude "dummyThing"
     archiveFileName = "AutoChat.jar"
 }
 
