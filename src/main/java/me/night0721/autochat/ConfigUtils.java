@@ -17,7 +17,7 @@ public class ConfigUtils {
 
     public static void reloadConfig() {
         if (hasNoKey("main", "hub")) writeStringConfig("main", "hub", "FREE CARRIES AND FREQUENT GIVEAWAYS!!! /p me for invite");
-        if (hasNoKey("main", "party")) writeStringConfig("main", "party", "Join and verify to get access! https://discord.gg/umuwc6fx");
+        if (hasNoKey("main", "party")) writeStringConfig("main", "party", "Join and verify to get access! https://discord.gg/??????");
     }
 
     public static void init() {
