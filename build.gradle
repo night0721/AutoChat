@@ -1,0 +1,81 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+        maven {
+            name = "forge"
+            url = "https://maven.minecraftforge.net/"
+        }
+        maven {
+            name = "jitpack"
+            url = "https://jitpack.io/"
+        }
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url "https://repo.sk1er.club/repository/maven-public" }
+    }
+    dependencies {
+        classpath "com.github.asbyth:ForgeGradle:6f53277"
+        classpath "com.github.jengelman.gradle.plugins:shadow:6.1.0"
+    }
+}
+
+apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: "com.github.johnrengelman.shadow"
+
+version = "0.01"
+group= "me.night0721.autochat"
+archivesBaseName = "AutoChat"
+
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+compileJava.options.encoding = 'UTF-8'
+
+sourceSets {
+    main {
+        output.resourcesDir = java.outputDir
+    }
+}
+
+minecraft {
+    version = "1.8.9-11.15.1.2318-1.8.9"
+    runDir = "run"
+    mappings = "stable_22"
+    makeObfSourceJar = false
+    replace "@VERSION@": project.version
+}
+
+configurations {
+    embed
+    implementation.extendsFrom(embed)
+}
+
+shadowJar {
+
+    archiveFileName = "AutoChat.jar"
+}
+
+reobfJar.dependsOn tasks.shadowJar
+
+processResources {
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+
+        expand 'version': project.version, 'mcversion': project.minecraft.version
+    }
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+    from(file("LICENSE"))
+}
+
+reobf {
+    shadowJar {
+        classpath = sourceSets.main.compileClasspath
+        mappingType = 'SEARGE'
+    }
+}
+
+sourceSets { main { output.resourcesDir = java.classesDirectory } }

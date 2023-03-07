@@ -1,0 +1,13 @@
+[{
+    "modid": "autochat",
+    "name": "§lAuto Chat",
+    "description": "§7Auto Chat",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "",
+    "updateUrl": "",
+    "authorList": ["night0721"],
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+}]
